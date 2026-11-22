@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#075b35">
+  <title>Dashboard Yayasan Wihdatul Muslimat</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<!-- Overlay mobile -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <img src="logo-wm.png" alt="Logo Wihdatul Muslimat" class="logo-wm">
+    <span class="org-name">YAYASAN WIHDATUL MUSLIMAT</span>
+    <span class="org-sub">Jakarta Pusat</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <!-- 1. Dashboard -->
+    <button class="nav-item active" data-page="overview">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+      <span>Dashboard</span>
+    </button>
+
+    <!-- 2. Kelembagaan -->
+    <button class="nav-item nav-item-parent" id="navKelembagaan" onclick="toggleSubMenu('Kelembagaan')">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>
+      <span>Kelembagaan</span>
+      <span class="nav-chevron" id="chevronKelembagaan">&#8250;</span>
+    </button>
+    <div class="nav-sub-menu" id="subKelembagaan" style="display:none">
+      <button class="nav-item nav-sub-item" data-page="kelembagaan-profil"><span class="nav-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><span>Profil Lembaga</span></button>
+      <button class="nav-item nav-sub-item" data-page="kelembagaan-identitas"><span class="nav-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span><span>Identitas Lembaga</span></button>
+      <button class="nav-item nav-sub-item" data-page="kelembagaan-lokasi"><span class="nav-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Lokasi Lembaga</span></button>
+      <button class="nav-item nav-sub-item" data-page="kelembagaan-galeri"><span class="nav-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span><span>Galeri Foto</span></button>
+      <button class="nav-item nav-sub-item" data-page="kelembagaan-dokumen"><span class="nav-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></span><span>Dokumen Perizinan</span></button>
+    </div>
+
+    <!-- 3. Sarana & Prasarana -->
+    <button class="nav-item nav-item-parent" id="navSarpras" type="button" aria-expanded="false" aria-controls="subSarpras">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></span>
+      <span>Sarana &amp; Prasarana</span>
+      <span class="nav-chevron" id="chevronSarpras">&#8250;</span>
+    </button>
+    <div class="nav-sub-menu" id="subSarpras" style="display:none">
+      <button class="nav-item nav-sub-item" data-page="sarpras-tanah"><span class="nav-icon">⌂</span><span>Tanah &amp; Bangunan</span></button>
+      <button class="nav-item nav-sub-item" data-page="sarpras-ruangan"><span class="nav-icon">▤</span><span>Data Ruangan</span></button>
+      <button class="nav-item nav-sub-item" data-page="sarpras-fasilitas"><span class="nav-icon">◇</span><span>Data Fasilitas</span></button>
+      <button class="nav-item nav-sub-item" data-page="sarpras-inventaris"><span class="nav-icon">▣</span><span>Inventaris Barang</span></button>
+      <button class="nav-item nav-sub-item" data-page="sarpras-galeri"><span class="nav-icon">▧</span><span>Galeri Sarpras</span></button>
+    </div>
+
+    <!-- 4. Data Anak Asuh -->
+    <button class="nav-item" data-page="anak">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+      <span>Data Anak Asuh</span>
+    </button>
+
+    <!-- 5. Akreditasi NPSAA -->
+    <button class="nav-item" data-page="akreditasi-npsaa">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M9 12l2 2 4-4"/><path d="M6.5 17.5L4 22l4-1 4 1-4-5"/><path d="M17.5 17.5L20 22l-4-1-4 1 4-5"/></svg></span>
+      <span>Akreditasi NPSAA</span>
+    </button>
+
+    <!-- 6. Struktur Org NPSAA -->
+    <button class="nav-item" data-page="struktur-npsaa">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="18" y1="9" x2="18" y2="12"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="12" x2="12" y2="15"/></svg></span>
+      <span>Org. Anak Asuh NPSAA</span>
+    </button>
+
+    <!-- 7. Data Lansia -->
+    <button class="nav-item" data-page="lansia">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4"/><path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6"/><path d="M9 15l-2 5M15 15l2 5"/></svg></span>
+      <span>Data Lansia</span>
+    </button>
+
+    <!-- 8. Akreditasi PUSAKA 10 -->
+    <button class="nav-item" data-page="akreditasi-pusaka">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M9 12l2 2 4-4"/><path d="M6.5 17.5L4 22l4-1 4 1-4-5"/><path d="M17.5 17.5L20 22l-4-1-4 1 4-5"/></svg></span>
+      <span>Akreditasi PUSAKA 10</span>
+    </button>
+
+    <!-- 9. Struktur Org PUSAKA 10 -->
+    <button class="nav-item" data-page="struktur-pusaka">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="18" y1="9" x2="18" y2="12"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="12" x2="12" y2="15"/></svg></span>
+      <span>Org. Lansia PUSAKA 10</span>
+    </button>
+
+    <!-- 10–14. Other menus -->
+    <button class="nav-item" data-page="kegiatan">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <span>Kegiatan Sosial</span>
+    </button>
+    <button class="nav-item" data-page="keuangan">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M2 10h20"/></svg></span>
+      <span>Donasi &amp; Keuangan</span>
+    </button>
+    <button class="nav-item" data-page="laporan">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+      <span>Laporan</span>
+    </button>
+    <button class="nav-item" data-page="kalender">
+      <span class="nav-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+      <span>Kalender</span>
+    </button>
+    <div class="nav-divider"></div>
+    <button class="nav-item" data-page="pengaturan">
+      <span class="nav-icon">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </span>
+      <span>Pengaturan</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-footer-inner">
+      <div class="footer-dot"></div>
+      <div>
+        <div class="footer-label">Admin Dashboard</div>
+        <div class="footer-sub">v2.1 &bull; Data lokal browser</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-wrapper" id="mainWrapper">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="btn-hamburger" id="hamburger" onclick="toggleSidebar()">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="page-title-wrap">
+        <h1 class="page-title" id="pageTitle">Overview</h1>
+        <p class="page-sub" id="pageSub">Ringkasan pengelolaan program dan kegiatan yayasan</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-wrap">
+        <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="search-input" id="searchInput" placeholder="Cari data..." oninput="globalSearch(this.value)">
+      </div>
+      <div class="topbar-avatar" title="Yayasan Wihdatul Muslimat">
+        <img src="logo-wm.png" alt="Logo Yayasan Wihdatul Muslimat">
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGES CONTAINER -->
+  <div class="pages-container">
+
+    <!-- ===== PAGE: OVERVIEW ===== -->
+    <section class="page active" id="page-overview">
+      <div id="searchResultsBox" class="search-results-box" style="display:none"></div>
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="two-col-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Aktivitas Terbaru</h3>
+            <button class="btn-link" onclick="showPage('kegiatan')">Lihat semua &rarr;</button>
+          </div>
+          <div id="recentActivity"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Mini Kalender</h3>
+            <div class="cal-nav">
+              <button class="btn-cal-nav" onclick="changeMonth(-1)">&lsaquo;</button>
+              <span id="miniCalTitle" class="cal-month-label"></span>
+              <button class="btn-cal-nav" onclick="changeMonth(1)">&rsaquo;</button>
+            </div>
+          </div>
+          <div class="mini-cal-head" id="miniCalHead"></div>
+          <div class="mini-cal-grid" id="miniCalGrid"></div>
+        </div>
+      </div>
+      <div class="two-col-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Statistik Data</h3>
+            <span class="badge-label">Jumlah entri</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="barChart" height="180"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Akses Cepat</h3>
+          </div>
+          <div class="quick-access">
+            <button class="quick-btn" onclick="showPage('anak');openModal('anak')">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              Tambah Anak Asuh
+            </button>
+            <button class="quick-btn" onclick="showPage('lansia');openModal('lansia')">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4"/><path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6"/></svg>
+              Tambah Data Lansia
+            </button>
+            <button class="quick-btn" onclick="showPage('kegiatan');openModal('kegiatan')">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Catat Kegiatan
+            </button>
+            <button class="quick-btn" onclick="showPage('keuangan');openModal('keuangan')">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+              Catat Donasi
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SARANA & PRASARANA MODULE ===== -->
+    <section class="page" id="page-sarpras-dashboard">
+      <div class="klb-breadcrumb"><span>Sarana &amp; Prasarana</span><span class="klb-breadcrumb-active">Dashboard</span></div>
+      <div class="klb-dash-grid" id="sarprasDashGrid"></div>
+      <div class="two-col-grid" style="margin-top:16px">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Ringkasan Pengelolaan Aset</h3></div>
+          <div id="sarprasOverview" class="info-block"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Aksi Cepat Sarana &amp; Prasarana</h3></div>
+          <div class="quick-access" style="grid-template-columns:1fr 1fr">
+            <button class="quick-btn" onclick="sarprasOpenAdd('tanah')">＋ Data Tanah &amp; Bangunan</button>
+            <button class="quick-btn" onclick="sarprasOpenAdd('ruangan')">＋ Tambah Ruangan</button>
+            <button class="quick-btn" onclick="sarprasOpenAdd('fasilitas')">＋ Tambah Fasilitas</button>
+            <button class="quick-btn" onclick="sarprasOpenAdd('inventaris')">＋ Inventaris Barang</button>
+            <button class="quick-btn" onclick="showPage('sarpras-galeri')">▧ Buka Galeri Sarpras</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-sarpras-tanah">
+      <div class="klb-breadcrumb"><span onclick="showPage('sarpras-dashboard')" style="cursor:pointer">Sarana &amp; Prasarana</span><span class="klb-breadcrumb-active">Data Tanah &amp; Bangunan</span></div>
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Data Tanah &amp; Bangunan <span class="count-badge" id="sarprasTanahCount">0</span></h3><div class="header-actions"><div class="search-wrap small"><input class="search-input" placeholder="Cari aset..." oninput="sarprasFilter('tanah',this.value)"></div><button class="btn-primary" onclick="sarprasOpenAdd('tanah')">＋ Tambah Data</button></div></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Nama Aset</th><th>Jenis</th><th>Luas Tanah</th><th>Luas Bangunan</th><th>Alamat</th><th>Kepemilikan</th><th>Kondisi</th><th>Aksi</th></tr></thead><tbody id="sarprasTanahBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-sarpras-ruangan">
+      <div class="klb-breadcrumb"><span onclick="showPage('sarpras-dashboard')" style="cursor:pointer">Sarana &amp; Prasarana</span><span class="klb-breadcrumb-active">Data Ruangan</span></div>
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Data Ruangan <span class="count-badge" id="sarprasRuanganCount">0</span></h3><div class="header-actions"><div class="search-wrap small"><input class="search-input" placeholder="Cari ruangan..." oninput="sarprasFilter('ruangan',this.value)"></div><button class="btn-primary" onclick="sarprasOpenAdd('ruangan')">＋ Tambah Ruangan</button></div></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Nama Ruangan</th><th>Jenis</th><th>Luas</th><th>Kapasitas</th><th>Lantai</th><th>Kondisi</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="sarprasRuanganBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-sarpras-fasilitas">
+      <div class="klb-breadcrumb"><span onclick="showPage('sarpras-dashboard')" style="cursor:pointer">Sarana &amp; Prasarana</span><span class="klb-breadcrumb-active">Data Fasilitas</span></div>
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Data Fasilitas <span class="count-badge" id="sarprasFasilitasCount">0</span></h3><div class="header-actions"><div class="search-wrap small"><input class="search-input" placeholder="Cari fasilitas..." oninput="sarprasFilter('fasilitas',this.value)"></div><button class="btn-primary" onclick="sarprasOpenAdd('fasilitas')">＋ Tambah Fasilitas</button></div></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Nama Fasilitas</th><th>Kategori</th><th>Jumlah</th><th>Kondisi</th><th>Status</th><th>Lokasi</th><th>Aksi</th></tr></thead><tbody id="sarprasFasilitasBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-sarpras-inventaris">
+      <div class="klb-breadcrumb"><span onclick="showPage('sarpras-dashboard')" style="cursor:pointer">Sarana &amp; Prasarana</span><span class="klb-breadcrumb-active">Inventaris Barang</span></div>
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Inventaris Barang <span class="count-badge" id="sarprasInventarisCount">0</span></h3><div class="header-actions"><div class="search-wrap small"><input class="search-input" placeholder="Cari inventaris..." oninput="sarprasFilter('inventaris',this.value)"></div><button class="btn-primary" onclick="sarprasOpenAdd('inventaris')">＋ Tambah Barang</button></div></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Nama Barang</th><th>Kode</th><th>Kategori</th><th>Jumlah</th><th>Kondisi</th><th>Lokasi</th><th>Tgl Perolehan</th><th>Aksi</th></tr></thead><tbody id="sarprasInventarisBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-sarpras-galeri">
+      <div class="klb-breadcrumb"><span onclick="showPage('sarpras-dashboard')" style="cursor:pointer">Sarana &amp; Prasarana</span><span class="klb-breadcrumb-active">Galeri Sarana Prasarana</span></div>
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Galeri Sarana Prasarana <span class="count-badge" id="sarprasGaleriCount">0</span></h3><div class="header-actions"><label class="btn-primary" style="cursor:pointer">＋ Upload Foto<input id="sarprasGalleryUpload" type="file" accept="image/*" multiple hidden onchange="sarprasGalleryUpload(this)"></label></div></div>
+        <p class="text-muted" style="padding:0 20px 14px">Dokumentasi gedung, ruangan, fasilitas, dan aset yayasan. Maks. 2 MB per foto.</p>
+        <div id="sarprasGalleryGrid" class="sarpras-gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: DATA ANAK ASUH ===== -->
+    <section class="page" id="page-anak">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Data Anak Asuh <span class="count-badge" id="anakCountBadge">0</span></h3>
+          <div class="header-actions">
+            <div class="search-wrap small">
+              <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="search-input" placeholder="Cari anak asuh..." oninput="filterLocalTable('anakTableBody',this.value)">
+            </div>
+            <div class="export-bar">
+              <button class="btn-secondary btn-sm" onclick="exportAnakExcel()">&#8595; Excel</button>
+              <button class="btn-secondary btn-sm" onclick="exportAnakPDF()">&#8595; PDF</button>
+            </div>
+            <button class="btn-primary" onclick="openModal('anak')">+ Tambah Data</button>
+          </div>
+        </div>
+        <div class="demo-badge">&#9888; Data contoh berlabel [DEMO]. Tambahkan data nyata sesuai kebutuhan.</div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>#</th><th>Foto</th><th>Nama Lengkap</th><th>NIK</th><th>Tgl Lahir</th><th>Usia</th><th>JK</th><th>Kategori</th><th>Pendidikan</th><th>Nama Wali</th><th>Aksi</th></tr></thead>
+            <tbody id="anakTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: DATA LANSIA ===== -->
+    <section class="page" id="page-lansia">
+      <!-- Rekapitulasi Stats -->
+      <div class="stats-grid lansia-stats" id="lansiaStatsGrid"></div>
+      <!-- Main Card -->
+      <div class="card" style="margin-top:16px">
+        <div class="card-header">
+          <h3 class="card-title">Data Lansia <span class="count-badge" id="lansiaCountBadge">0</span></h3>
+          <div class="header-actions">
+            <div class="search-wrap small">
+              <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="search-input" id="lansiaSearchInput" placeholder="Cari nama / NIK..." oninput="filterLansiaTable()">
+            </div>
+            <div class="filter-bar">
+              <select id="lansiaFilterJK" onchange="filterLansiaTable()" class="filter-select">
+                <option value="">Semua JK</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+              <select id="lansiaFilterUmur" onchange="filterLansiaTable()" class="filter-select">
+                <option value="">Semua Usia</option>
+                <option value="60-69">60&ndash;69 thn</option>
+                <option value="70-79">70&ndash;79 thn</option>
+                <option value="80+">80+ thn</option>
+              </select>
+              <select id="lansiaFilterKondisi" onchange="filterLansiaTable()" class="filter-select">
+                <option value="">Semua Kondisi</option>
+                <option value="Sehat">Sehat</option>
+                <option value="Sakit Ringan">Sakit Ringan</option>
+                <option value="Sakit Sedang">Sakit Sedang</option>
+                <option value="Sakit Berat">Sakit Berat</option>
+                <option value="Butuh Perawatan Khusus">Butuh Perawatan</option>
+              </select>
+            </div>
+            <div class="export-bar">
+              <button class="btn-secondary btn-sm" onclick="exportLansiaExcel()">&#8595; Excel</button>
+              <button class="btn-secondary btn-sm" onclick="exportLansiaPDF()">&#8595; PDF</button>
+            </div>
+            <button class="btn-primary" onclick="openModal('lansia')">+ Tambah Data</button>
+          </div>
+        </div>
+        <div class="demo-badge">&#9888; Data contoh berlabel [DEMO]. Tambahkan data nyata sesuai kebutuhan.</div>
+        <div class="table-wrap">
+          <table class="data-table" id="lansiaTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Foto</th>
+                <th class="sortable" onclick="sortLansiaTable('nama')">Nama Lengkap <span class="sort-icon" id="sort-nama">&#8597;</span></th>
+                <th>NIK</th>
+                <th class="sortable" onclick="sortLansiaTable('tglLahir')">Tgl Lahir <span class="sort-icon" id="sort-tglLahir">&#8597;</span></th>
+                <th class="sortable" onclick="sortLansiaTable('usia')">Usia <span class="sort-icon" id="sort-usia">&#8597;</span></th>
+                <th>JK</th>
+                <th>Klp. Usia</th>
+                <th>Pendidikan</th>
+                <th>Kondisi Kesehatan</th>
+                <th>Kebutuhan Bantuan</th>
+                <th>Wali / Keluarga</th>
+                <th>Telepon</th>
+                <th>Kecamatan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="lansiaTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: KEGIATAN SOSIAL ===== -->
+    <section class="page" id="page-kegiatan">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Kegiatan Sosial <span class="count-badge" id="kegiatanCountBadge">0</span></h3>
+          <div class="header-actions">
+            <div class="search-wrap small">
+              <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="search-input" placeholder="Cari kegiatan..." oninput="filterLocalTable('kegiatanTableBody',this.value)">
+            </div>
+            <button class="btn-primary" onclick="openModal('kegiatan')">+ Tambah Kegiatan</button>
+          </div>
+        </div>
+        <div class="demo-badge">&#9888; Data contoh berlabel [DEMO].</div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>#</th><th>Nama Kegiatan</th><th>Tanggal</th><th>Lokasi</th><th>Penerima</th><th>Dokumentasi</th><th>Aksi</th></tr></thead>
+            <tbody id="kegiatanTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: KEUANGAN ===== -->
+    <section class="page" id="page-keuangan">
+      <div class="stats-grid keu-stats" id="keuanganStats"></div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Riwayat Transaksi <span class="count-badge" id="keuanganCountBadge">0</span></h3>
+          <div class="header-actions">
+            <div class="search-wrap small">
+              <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="search-input" placeholder="Cari transaksi..." oninput="filterLocalTable('keuanganTableBody',this.value)">
+            </div>
+            <button class="btn-primary" onclick="openModal('keuangan')">+ Catat Transaksi</button>
+          </div>
+        </div>
+        <div class="demo-badge">&#9888; Data contoh berlabel [DEMO].</div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>#</th><th>Tanggal</th><th>Keterangan</th><th>Jenis</th><th>Nominal</th><th>Aksi</th></tr></thead>
+            <tbody id="keuanganTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: LAPORAN ===== -->
+    <section class="page" id="page-laporan">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Ringkasan Laporan</h3>
+          <div class="header-actions">
+            <button class="btn-secondary" onclick="exportCSV()">&#8595; Ekspor CSV</button>
+            <button class="btn-primary" onclick="exportExcel()">&#8595; Ekspor Excel</button>
+          </div>
+        </div>
+        <div id="laporanContent"></div>
+      </div>
+      <div class="two-col-grid" style="margin-top:16px">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Grafik Kegiatan per Bulan</h3></div>
+          <div class="chart-wrap"><canvas id="lineChart" height="200"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Distribusi Kategori Anak Asuh</h3></div>
+          <div class="chart-wrap pie-wrap"><canvas id="pieChart" height="200"></canvas></div>
+          <div id="pieLegend" class="pie-legend"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: KALENDER ===== -->
+    <section class="page" id="page-kalender">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Kalender Kegiatan</h3>
+          <div class="cal-nav">
+            <button class="btn-cal-nav" onclick="changeFullCalMonth(-1)">&lsaquo; Sebelumnya</button>
+            <span id="fullCalTitle" class="cal-month-label big"></span>
+            <button class="btn-cal-nav" onclick="changeFullCalMonth(1)">Berikutnya &rsaquo;</button>
+          </div>
+        </div>
+        <div class="full-cal-head" id="fullCalHead"></div>
+        <div class="full-cal-grid" id="fullCalGrid"></div>
+        <div id="calEventDetail" class="cal-event-detail" style="display:none"></div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: STRUKTUR ORGANISASI ANAK ASUH NPSAA ===== -->
+    <section class="page" id="page-struktur-npsaa">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:6px"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="18" y1="9" x2="18" y2="12"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+            Struktur Organisasi Anak Asuh NPSAA
+          </h3>
+          <div class="header-actions">
+            <label class="btn-primary" style="cursor:pointer;padding:9px 16px;font-size:13px;font-weight:600;border-radius:9px;display:inline-flex;align-items:center;gap:6px">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload Dokumen
+              <input type="file" id="uploadNpsaa" accept="image/*,.pdf" style="display:none" onchange="handleStrukturUpload('npsaa',this)">
+            </label>
+          </div>
+        </div>
+        <div class="demo-badge">&#8505; Upload gambar bagan struktur organisasi atau dokumen PDF. Bisa diganti dan dihapus.</div>
+        <div id="strukturNpsaaContent">
+          <div id="strukturNpsaaEmpty" style="text-align:center;padding:48px 20px;color:var(--muted)">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 12px;display:block;opacity:.35"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <p style="font-size:13px">Belum ada dokumen. Klik <b>Upload Dokumen</b> untuk mengunggah bagan atau PDF.</p>
+          </div>
+          <div id="strukturNpsaaList" style="display:none"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: STRUKTUR ORGANISASI LANSIA PUSAKA 10 ===== -->
+    <section class="page" id="page-struktur-pusaka">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:6px"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="18" y1="9" x2="18" y2="12"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+            Struktur Organisasi Lansia PUSAKA 10
+          </h3>
+          <div class="header-actions">
+            <label class="btn-primary" style="cursor:pointer;padding:9px 16px;font-size:13px;font-weight:600;border-radius:9px;display:inline-flex;align-items:center;gap:6px">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload Dokumen
+              <input type="file" id="uploadPusaka" accept="image/*,.pdf" style="display:none" onchange="handleStrukturUpload('pusaka',this)">
+            </label>
+          </div>
+        </div>
+        <div class="demo-badge">&#8505; Upload gambar bagan struktur organisasi atau dokumen PDF. Bisa diganti dan dihapus.</div>
+        <div id="strukturPusakaContent">
+          <div id="strukturPusakaEmpty" style="text-align:center;padding:48px 20px;color:var(--muted)">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 12px;display:block;opacity:.35"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <p style="font-size:13px">Belum ada dokumen. Klik <b>Upload Dokumen</b> untuk mengunggah bagan atau PDF.</p>
+          </div>
+          <div id="strukturPusakaList" style="display:none"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: PENGATURAN ===== -->
+    <section class="page" id="page-pengaturan">
+      <div class="two-col-grid">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Informasi Aplikasi</h3></div>
+          <div class="info-block">
+            <div class="info-row"><span>Nama Aplikasi</span><b>Dashboard Administrasi YWM</b></div>
+            <div class="info-row"><span>Versi</span><b>2.1</b></div>
+            <div class="info-row"><span>Penyimpanan Data</span><b>localStorage Browser</b></div>
+            <div class="info-row"><span>Organisasi</span><b>Yayasan Wihdatul Muslimat Jakarta Pusat</b></div>
+            <div class="info-row"><span>Teknologi</span><b>HTML5, CSS3, JavaScript</b></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Manajemen Data</h3></div>
+          <div class="info-block">
+            <p class="text-muted">Data tersimpan secara lokal pada perangkat yang digunakan. Ekspor data sebelum melakukan reset.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px">
+              <button class="btn-secondary" onclick="exportCSV()">&#8595; Backup Data (CSV)</button>
+              <button class="btn-danger" onclick="confirmReset()">&#9888; Reset Seluruh Data</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-header"><h3 class="card-title">Petunjuk Penggunaan &amp; Deploy ke GitHub Pages</h3></div>
+        <div class="guide-content" id="guideContent"></div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: KELEMBAGAAN DASHBOARD ===== -->
+    <section class="page" id="page-kelembagaan-dashboard">
+      <div class="klb-breadcrumb">
+        <span>Kelembagaan</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="klb-breadcrumb-active">Dashboard Kelembagaan</span>
+      </div>
+      <div class="klb-dash-grid" id="klbDashGrid">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="two-col-grid" style="margin-top:16px">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Status Kelengkapan Data</h3></div>
+          <div id="klbCompleteness" style="padding:4px 0"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Aksi Cepat Kelembagaan</h3></div>
+          <div class="quick-access" style="grid-template-columns:1fr 1fr">
+            <button class="quick-btn" onclick="showPage('kelembagaan-identitas')">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+              Isi Identitas
+            </button>
+            <button class="quick-btn" onclick="showPage('kelembagaan-lokasi')">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Isi Lokasi
+            </button>
+            <button class="quick-btn" onclick="showPage('kelembagaan-galeri')">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Upload Foto
+            </button>
+            <button class="quick-btn" onclick="showPage('kelembagaan-dokumen')">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+              Upload Dokumen
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: PROFIL LEMBAGA (tabs hub) ===== -->
+    <section class="page" id="page-kelembagaan-profil">
+      <div class="klb-breadcrumb">
+        <span onclick="showPage('kelembagaan-dashboard')" style="cursor:pointer">Kelembagaan</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="klb-breadcrumb-active">Profil Lembaga</span>
+      </div>
+      <div class="klb-tabs-nav" id="klbTabsNav">
+        <button class="klb-tab active" data-tab="identitas" onclick="switchKlbTab('identitas')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          Identitas Lembaga
+        </button>
+        <button class="klb-tab" data-tab="lokasi" onclick="switchKlbTab('lokasi')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Lokasi Lembaga
+        </button>
+        <button class="klb-tab" data-tab="galeri" onclick="switchKlbTab('galeri')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Galeri Foto
+        </button>
+        <button class="klb-tab" data-tab="dokumen" onclick="switchKlbTab('dokumen')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Dokumen Perizinan
+        </button>
+      </div>
+      <div id="klbTabContent">
+        <!-- Tab content rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ===== PAGE: IDENTITAS LEMBAGA ===== -->
+    <section class="page" id="page-kelembagaan-identitas">
+      <div class="klb-breadcrumb">
+        <span onclick="showPage('kelembagaan-dashboard')" style="cursor:pointer">Kelembagaan</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="klb-breadcrumb-active">Identitas Lembaga</span>
+      </div>
+      <div id="pageIdentitasContent"></div>
+    </section>
+
+    <!-- ===== PAGE: LOKASI LEMBAGA ===== -->
+    <section class="page" id="page-kelembagaan-lokasi">
+      <div class="klb-breadcrumb">
+        <span onclick="showPage('kelembagaan-dashboard')" style="cursor:pointer">Kelembagaan</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="klb-breadcrumb-active">Lokasi Lembaga</span>
+      </div>
+      <div id="pageLokasiContent"></div>
+    </section>
+
+    <!-- ===== PAGE: GALERI FOTO ===== -->
+    <section class="page" id="page-kelembagaan-galeri">
+      <div class="klb-breadcrumb">
+        <span onclick="showPage('kelembagaan-dashboard')" style="cursor:pointer">Kelembagaan</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="klb-breadcrumb-active">Galeri Foto</span>
+      </div>
+      <div id="pageGaleriContent"></div>
+    </section>
+
+    <!-- ===== PAGE: DOKUMEN PERIZINAN ===== -->
+    <section class="page" id="page-kelembagaan-dokumen">
+      <div class="klb-breadcrumb">
+        <span onclick="showPage('kelembagaan-dashboard')" style="cursor:pointer">Kelembagaan</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="klb-breadcrumb-active">Dokumen Perizinan</span>
+      </div>
+      <div id="pageDokumenContent"></div>
+    </section>
+
+  </div><!-- /pages-container -->
+</div><!-- /main-wrapper -->
+
+<!-- ===== MODALS ===== -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModal()"></div>
+
+<!-- Modal: Anak Asuh -->
+<div class="modal" id="modal-anak">
+  <div class="modal-header">
+    <h3 id="modalAnakTitle">Tambah Data Anak Asuh</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <form id="formAnak" onsubmit="saveAnak(event)">
+    <input type="hidden" id="anakId">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nama Lengkap *</label>
+        <input type="text" id="anakNama" placeholder="Nama lengkap anak" required>
+      </div>
+      <div class="form-group">
+        <label>NIK</label>
+        <input type="text" id="anakNik" placeholder="Nomor Induk Kependudukan" maxlength="16">
+      </div>
+      <div class="form-group">
+        <label>Tanggal Lahir *</label>
+        <input type="date" id="anakTglLahir" required>
+      </div>
+      <div class="form-group">
+        <label>Jenis Kelamin</label>
+        <select id="anakJK">
+          <option value="Perempuan">Perempuan</option>
+          <option value="Laki-laki">Laki-laki</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Kategori</label>
+        <select id="anakKategori">
+          <option value="Yatim">Yatim</option>
+          <option value="Piatu">Piatu</option>
+          <option value="Yatim Piatu">Yatim Piatu</option>
+          <option value="Dhuafa">Dhuafa</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pendidikan</label>
+        <select id="anakPendidikan">
+          <option value="Belum Sekolah">Belum Sekolah</option>
+          <option value="SD/MI">SD/MI</option>
+          <option value="SMP/MTs">SMP/MTs</option>
+          <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+          <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+          <option value="Tidak Sekolah">Tidak Sekolah</option>
+        </select>
+      </div>
+      <div class="form-group full-width">
+        <label>Nama Wali</label>
+        <input type="text" id="anakWali" placeholder="Nama orang tua/wali">
+      </div>
+      <div class="form-group full-width">
+        <label>Foto Anak Asuh</label>
+        <input type="file" id="anakFoto" accept="image/*" class="file-input" onchange="previewAnakFoto(this)">
+        <div class="file-hint">JPG/PNG maks. 2MB. Foto akan ditampilkan di tabel dan detail.</div>
+        <div id="anakFotoPreview" class="doc-preview" style="display:none"></div>
+        <div id="anakFotoCurrentWrap" style="display:none;margin-top:6px">
+          <span style="font-size:11px;color:var(--muted)">Foto saat ini:</span>
+          <img id="anakFotoCurrent" src="" alt="Foto saat ini" style="max-width:80px;max-height:80px;border-radius:6px;border:1px solid var(--line);margin-top:4px;display:block">
+          <button type="button" class="btn-link" style="font-size:11px;color:var(--red);margin-top:4px" onclick="hapusFotoAnak()">Hapus Foto</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button type="submit" class="btn-primary">Simpan Data</button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal: Detail Anak Asuh -->
+<div class="modal" id="modal-anak-detail">
+  <div class="modal-header">
+    <h3 id="modalAnakDetailTitle">Detail Anak Asuh</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <div class="modal-body-scroll" id="anakDetailContent" style="padding:16px 20px;max-height:72vh;overflow-y:auto"></div>
+  <div class="modal-footer">
+    <button type="button" class="btn-secondary" onclick="closeModal()">Tutup</button>
+    <button type="button" class="btn-primary" id="anakDetailEditBtn">Edit Data</button>
+  </div>
+</div>
+
+<!-- Modal: Lansia -->
+<div class="modal modal-lansia-wide" id="modal-lansia">
+  <div class="modal-header">
+    <h3 id="modalLansiaTitle">Tambah Data Lansia</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <form id="formLansia" onsubmit="saveLansia(event)" novalidate>
+    <input type="hidden" id="lansiaId">
+    <div class="modal-body-scroll">
+
+      <!-- SEKSI 1: Identitas Lansia -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          1. Identitas Lansia
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nama Lengkap <span class="req">*</span></label>
+            <input type="text" id="lansiaNama" placeholder="Nama lengkap sesuai KTP" required>
+          </div>
+          <div class="form-group">
+            <label>NIK <span class="req">*</span> <span class="field-note">(16 digit)</span></label>
+            <input type="text" id="lansiaNik" placeholder="16 digit angka" maxlength="16" inputmode="numeric" required>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Lahir <span class="req">*</span></label>
+            <input type="date" id="lansiaTglLahir" onchange="updateLansiaUsia()" required>
+          </div>
+          <div class="form-group">
+            <label>Usia <span class="field-note">(otomatis)</span></label>
+            <input type="text" id="lansiaUsiaDisplay" readonly class="input-readonly" placeholder="—">
+          </div>
+          <div class="form-group">
+            <label>Tempat Lahir</label>
+            <input type="text" id="lansiaTempatLahir" placeholder="Kota/kab. tempat lahir">
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin <span class="req">*</span></label>
+            <select id="lansiaJK" required>
+              <option value="Perempuan">Perempuan</option>
+              <option value="Laki-laki">Laki-laki</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status Perkawinan</label>
+            <select id="lansiaStatusKawin">
+              <option value="Menikah">Menikah</option>
+              <option value="Janda">Janda</option>
+              <option value="Duda">Duda</option>
+              <option value="Cerai">Cerai</option>
+              <option value="Belum Menikah">Belum Menikah</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Agama</label>
+            <select id="lansiaAgama">
+              <option value="Islam">Islam</option>
+              <option value="Kristen">Kristen</option>
+              <option value="Katolik">Katolik</option>
+              <option value="Hindu">Hindu</option>
+              <option value="Buddha">Buddha</option>
+              <option value="Konghucu">Konghucu</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pendidikan Terakhir</label>
+            <select id="lansiaPendidikan">
+              <option value="Tidak Sekolah">Tidak Sekolah</option>
+              <option value="SD/MI">SD/MI</option>
+              <option value="SMP/MTs">SMP/MTs</option>
+              <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Sarjana">Sarjana/S1</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pekerjaan</label>
+            <input type="text" id="lansiaPekerjaan" placeholder="Pekerjaan / pensiunan dari">
+          </div>
+          <div class="form-group">
+            <label>No. Telepon</label>
+            <input type="tel" id="lansiaTelp" placeholder="Contoh: 0812-3456-7890">
+          </div>
+          <div class="form-group">
+            <label>Foto Lansia</label>
+            <input type="file" id="lansiaFoto" accept="image/*" class="file-input" onchange="previewLansiaFoto(this)">
+            <div class="file-hint">JPG/PNG maks. 2MB</div>
+            <div id="lansiaFotoPreview" class="doc-preview" style="display:none"></div>
+            <div id="lansiaFotoCurrentWrap" style="display:none;margin-top:6px">
+              <span style="font-size:11px;color:var(--muted)">Foto saat ini:</span>
+              <img id="lansiaFotoCurrent" src="" alt="Foto saat ini" style="max-width:80px;max-height:80px;border-radius:6px;border:1px solid var(--line);margin-top:4px;display:block">
+              <button type="button" class="btn-link" style="font-size:11px;color:var(--red);margin-top:4px" onclick="hapusFotoLansia()">Hapus Foto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKSI 2: Alamat dan Keluarga -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          2. Alamat dan Data Keluarga
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nomor KK <span class="req">*</span> <span class="field-note">(16 digit)</span></label>
+            <input type="text" id="lansiaNoKK" placeholder="16 digit angka" maxlength="16" inputmode="numeric" required>
+          </div>
+          <div class="form-group">
+            <label>RT / RW</label>
+            <input type="text" id="lansiaRTRW" placeholder="Contoh: 003/005">
+          </div>
+          <div class="form-group full-width">
+            <label>Alamat Lengkap <span class="req">*</span></label>
+            <textarea id="lansiaAlamat" rows="2" placeholder="Jl./Gang/No. rumah" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Kelurahan / Desa</label>
+            <input type="text" id="lansiaKelurahan" placeholder="Kelurahan">
+          </div>
+          <div class="form-group">
+            <label>Kecamatan</label>
+            <input type="text" id="lansiaKecamatan" placeholder="Kecamatan">
+          </div>
+          <div class="form-group">
+            <label>Kota / Kabupaten</label>
+            <input type="text" id="lansiaKota" placeholder="Jakarta Pusat">
+          </div>
+          <div class="form-group">
+            <label>Status Tempat Tinggal</label>
+            <select id="lansiaStatusTinggal">
+              <option value="Milik Sendiri">Milik Sendiri</option>
+              <option value="Bersama Keluarga">Bersama Keluarga</option>
+              <option value="Sewa / Kontrak">Sewa / Kontrak</option>
+              <option value="Rumah Saudara">Rumah Saudara</option>
+              <option value="Panti Jompo">Panti Jompo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nama Wali / Keluarga Terdekat</label>
+            <input type="text" id="lansiaWali" placeholder="Nama penanggung jawab">
+          </div>
+          <div class="form-group">
+            <label>Hubungan dengan Lansia</label>
+            <select id="lansiaHubWali">
+              <option value="Anak Kandung">Anak Kandung</option>
+              <option value="Menantu">Menantu</option>
+              <option value="Cucu">Cucu</option>
+              <option value="Saudara">Saudara</option>
+              <option value="Suami/Istri">Suami/Istri</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>No. HP Keluarga</label>
+            <input type="tel" id="lansiaTelpWali" placeholder="Contoh: 0812-3456-7890">
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKSI 3: Kondisi dan Kebutuhan -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          3. Kondisi dan Kebutuhan
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Kondisi Kesehatan Umum</label>
+            <select id="lansiaKondisiKesehatan">
+              <option value="Sehat">Sehat</option>
+              <option value="Sakit Ringan">Sakit Ringan</option>
+              <option value="Sakit Sedang">Sakit Sedang</option>
+              <option value="Sakit Berat">Sakit Berat</option>
+              <option value="Butuh Perawatan Khusus">Butuh Perawatan Khusus</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kondisi Fisik</label>
+            <select id="lansiaKondisiFisik">
+              <option value="Baik">Baik</option>
+              <option value="Lemah">Lemah</option>
+              <option value="Disabilitas Ringan">Disabilitas Ringan</option>
+              <option value="Disabilitas Berat">Disabilitas Berat</option>
+              <option value="Lumpuh / Tidur">Lumpuh / Tidur</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Riwayat Penyakit</label>
+            <input type="text" id="lansiaPenyakit" placeholder="Contoh: Hipertensi, Diabetes">
+          </div>
+          <div class="form-group">
+            <label>Kemandirian / Tingkat Bantuan</label>
+            <select id="lansiaKemandirian">
+              <option value="Mandiri">Mandiri</option>
+              <option value="Butuh Bantuan Sebagian">Butuh Bantuan Sebagian</option>
+              <option value="Ketergantungan Penuh">Ketergantungan Penuh</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kebutuhan Bantuan</label>
+            <select id="lansiaKebutuhanBantuan">
+              <option value="Tidak Ada">Tidak Ada</option>
+              <option value="Sembako / Pangan">Sembako / Pangan</option>
+              <option value="Layanan Kesehatan">Layanan Kesehatan</option>
+              <option value="Pendampingan Harian">Pendampingan Harian</option>
+              <option value="Bantuan Finansial">Bantuan Finansial</option>
+              <option value="Alat Bantu (kursi roda, dll)">Alat Bantu (kursi roda, dll)</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Sumber Penghasilan</label>
+            <select id="lansiaPenghasilan">
+              <option value="Dari Keluarga">Dari Keluarga</option>
+              <option value="Pensiunan">Pensiunan</option>
+              <option value="Usaha Sendiri">Usaha Sendiri</option>
+              <option value="Tidak Ada">Tidak Ada</option>
+              <option value="Bantuan Sosial">Bantuan Sosial</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Penerima Bansos</label>
+            <select id="lansiaBansos">
+              <option value="Tidak">Tidak</option>
+              <option value="PKH">PKH</option>
+              <option value="BPNT">BPNT</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kepemilikan BPJS</label>
+            <select id="lansiaBpjs">
+              <option value="Tidak Punya">Tidak Punya</option>
+              <option value="BPJS PBI">BPJS PBI (subsidi)</option>
+              <option value="BPJS Mandiri">BPJS Mandiri</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label>Keterangan Tambahan</label>
+            <textarea id="lansiaCatatan" rows="2" placeholder="Catatan kondisi, kebutuhan khusus, atau informasi tambahan lainnya"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKSI 4: Dokumen Pendukung -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          4. Dokumen Pendukung
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Scan / Foto KTP</label>
+            <input type="file" id="lansiaDocKTP" accept="image/*,.pdf" class="file-input" onchange="previewDocLansia(this,'prevKTP')">
+            <div class="file-hint">JPG/PNG/PDF maks. 2MB</div>
+            <div id="prevKTP" class="doc-preview" style="display:none"></div>
+          </div>
+          <div class="form-group">
+            <label>Scan / Foto Kartu Keluarga</label>
+            <input type="file" id="lansiaDocKK" accept="image/*,.pdf" class="file-input" onchange="previewDocLansia(this,'prevKK')">
+            <div class="file-hint">JPG/PNG/PDF maks. 2MB</div>
+            <div id="prevKK" class="doc-preview" style="display:none"></div>
+          </div>
+          <div class="form-group">
+            <label>Surat Keterangan Tidak Mampu</label>
+            <input type="file" id="lansiaDocSKTM" accept="image/*,.pdf" class="file-input" onchange="previewDocLansia(this,'prevSKTM')">
+            <div class="file-hint">JPG/PNG/PDF maks. 2MB</div>
+            <div id="prevSKTM" class="doc-preview" style="display:none"></div>
+          </div>
+          <div class="form-group">
+            <label>Dokumen Lainnya</label>
+            <input type="file" id="lansiaDocLain" accept="image/*,.pdf" class="file-input" onchange="previewDocLansia(this,'prevLain')">
+            <div class="file-hint">JPG/PNG/PDF maks. 2MB</div>
+            <div id="prevLain" class="doc-preview" style="display:none"></div>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Terdaftar</label>
+            <input type="date" id="lansiaTglDaftar">
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="lansiaStatus">
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
+          </div>
+        </div>
+        <div style="padding:0 14px 14px">
+          <div class="supabase-note">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Foto dan dokumen disimpan sebagai data URL di localStorage browser. Untuk produksi, gunakan cloud storage.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /modal-body-scroll -->
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button type="submit" class="btn-primary">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+        Simpan Data
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal: Detail Lansia -->
+<div class="modal modal-lansia-wide" id="modal-lansia-detail">
+  <div class="modal-header">
+    <h3 id="modalLansiaDetailTitle">Detail Data Lansia</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <div class="modal-body-scroll" id="lansiaDetailContent" style="padding:16px 20px"></div>
+  <div class="modal-footer">
+    <button type="button" class="btn-secondary" onclick="closeModal()">Tutup</button>
+    <button type="button" class="btn-primary" id="detailEditBtn">Edit Data</button>
+  </div>
+</div>
+
+<!-- Modal: Kegiatan -->
+<div class="modal" id="modal-kegiatan">
+  <div class="modal-header">
+    <h3 id="modalKegiatanTitle">Tambah Kegiatan Sosial</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <form id="formKegiatan" onsubmit="saveKegiatan(event)">
+    <input type="hidden" id="kegiatanId">
+    <div class="form-grid">
+      <div class="form-group full-width">
+        <label>Nama Kegiatan *</label>
+        <input type="text" id="kegiatanNama" placeholder="Nama kegiatan" required>
+      </div>
+      <div class="form-group">
+        <label>Tanggal *</label>
+        <input type="date" id="kegiatanTgl" required>
+      </div>
+      <div class="form-group">
+        <label>Lokasi</label>
+        <input type="text" id="kegiatanLokasi" placeholder="Lokasi kegiatan">
+      </div>
+      <div class="form-group">
+        <label>Jumlah Penerima Manfaat</label>
+        <input type="number" id="kegiatanPenerima" placeholder="Contoh: 50" min="0">
+      </div>
+      <div class="form-group">
+        <label>Dokumentasi (URL foto)</label>
+        <input type="url" id="kegiatanDokumentasi" placeholder="https://...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button type="submit" class="btn-primary">Simpan Kegiatan</button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal: Keuangan -->
+<div class="modal" id="modal-keuangan">
+  <div class="modal-header">
+    <h3 id="modalKeuanganTitle">Catat Transaksi</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <form id="formKeuangan" onsubmit="saveKeuangan(event)">
+    <input type="hidden" id="keuanganId">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Tanggal *</label>
+        <input type="date" id="keuanganTgl" required>
+      </div>
+      <div class="form-group">
+        <label>Jenis Transaksi</label>
+        <select id="keuanganJenis">
+          <option value="Pemasukan">Pemasukan / Donasi Masuk</option>
+          <option value="Pengeluaran">Pengeluaran</option>
+        </select>
+      </div>
+      <div class="form-group full-width">
+        <label>Keterangan *</label>
+        <input type="text" id="keuanganKet" placeholder="Keterangan transaksi" required>
+      </div>
+      <div class="form-group">
+        <label>Nominal (Rp) *</label>
+        <input type="number" id="keuanganNominal" placeholder="Contoh: 500000" min="0" required>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button type="submit" class="btn-primary">Simpan Transaksi</button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal: Sarana & Prasarana records and gallery details -->
+<div class="modal" id="modal-sarpras-record">
+  <div class="modal-header">
+    <h3 id="sarprasModalTitle">Tambah Data Sarana &amp; Prasarana</h3>
+    <button class="modal-close" type="button" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <form id="sarprasRecordForm" onsubmit="sarprasSave(event)">
+    <input type="hidden" id="sarprasRecordId">
+    <input type="hidden" id="sarprasRecordType">
+    <div id="sarprasFormFields" class="form-grid"></div>
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button type="submit" class="btn-primary">Simpan Data</button>
+    </div>
+  </form>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal modal-sm" id="modal-confirm">
+  <div class="modal-header">
+    <h3>Konfirmasi</h3>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+  </div>
+  <div style="padding:0 20px 10px">
+    <p id="confirmMsg">Apakah Anda yakin ingin menghapus data ini?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-secondary" onclick="closeModal()">Batal</button>
+    <button class="btn-danger" id="confirmBtn">Hapus</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/export.js"></script>
+<script src="js/app.js"></script>
+<script src="js/kelembagaan.js"></script>
+<script src="js/sarpras.js"></script>
+</body>
+</html>
